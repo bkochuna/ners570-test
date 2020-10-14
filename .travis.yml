@@ -11,16 +11,14 @@ script:
   - echo $PWD && ls -ahl && mkdir ../bld && cd ../bld && echo $PWD
   - cmake ${TRAVIS_BUILD_DIR}
 
-# jobs:
-#   include:
-#     - stage: "Configure"
-#       script:
-#         - cmake ../ners570f20-Lab06
-#     - stage: "Build"
-#       script: make
-#     - stage: "Test"
-#       script:
-#         - echo "NO TESTS YET!"
-#     - stage: "Install"
-#         - echo "NO INSTALL YET!"
+jobs:
+  include:
+    - stage: config
+      name: "Configure"
+      script:
+        - echo $PWD && ls -ahl && mkdir ../bld && cd ../bld && echo $PWD
+        - cmake ${TRAVIS_BUILD_DIR}
+    - stage: build
+      name:  "Build"
+      script: make
 
