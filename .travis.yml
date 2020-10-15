@@ -1,28 +1,37 @@
 language: cpp
 os: linux
-dist:
-  - trusty
-  - precise
-  - xenial
-  - bionic
 
 cache:
   directories:
     - ${TRAVIS_BUILD_DIR}/../bld
 
+#Stage Expansions
+_configure: &configure
+  before_script:
+    - rm -rf ${TRAVIS_BUILD_DIR}/../bld
+    - echo $PWD && mkdir ../bld && cd ../bld && echo $PWD
+  script:
+    - cmake ${TRAVIS_BUILD_DIR}
+
+
 jobs:
   include:
     - stage: Configure
-      before_script:
-        - rm -rf ${TRAVIS_BUILD_DIR}/../bld
-        - echo $PWD && mkdir ../bld && cd ../bld && echo $PWD
-      script:
-        - cmake ${TRAVIS_BUILD_DIR}
+      dist: trusty
+      <<: *configure
+    - stage: Configure
+      dist: precise    
+      <<: *configure
+
     - stage: Build
+      dist: trusty
       before_script: cd ../bld
       script:
         - make
+
+
     - stage: Test
+      dist: trusty
       before_script: cd ../bld
       script:
         - ctest -VV
