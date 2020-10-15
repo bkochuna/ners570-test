@@ -5,33 +5,77 @@ cache:
   directories:
     - ${TRAVIS_BUILD_DIR}/../bld
 
+addons:
+  apt:
+    - cmake
+
 #Stage Expansions
 _configure: &configure
   before_script:
     - rm -rf ${TRAVIS_BUILD_DIR}/../bld
     - echo $PWD && mkdir ../bld && cd ../bld && echo $PWD
+    - cmake --version
+    - g++ --version
   script:
     - cmake ${TRAVIS_BUILD_DIR}
 
+_build: &build
+  before_script: cd ../bld
+  script:
+    - make
 
+_test: &test
+  before_script: cd ../bld
+  script:
+    - ctest -VV
+
+#Configure, build, test job matrix by distribution
 jobs:
   include:
     - stage: Configure
-      dist: trusty
+      dist: precise
       <<: *configure
     - stage: Configure
-      dist: precise    
+      dist: trusty    
+      <<: *configure
+    - stage: Configure
+      dist: xenial
+      <<: *configure
+    - stage: Configure
+      dist: bionic
+      <<: *configure
+    - stage: Configure
+      dist: focal
       <<: *configure
 
     - stage: Build
+      dist: precise
+      <<: *build
+    - stage: Build
       dist: trusty
-      before_script: cd ../bld
-      script:
-        - make
-
+      <<: *build
+    - stage: Build
+      dist: xenial
+      <<: *build
+    - stage: Build
+      dist: bionic
+      <<: *build
+    - stage: Build
+      dist: focal
+      <<: *build
 
     - stage: Test
+      dist: precise
+      <<: *test
+    - stage: Test
       dist: trusty
-      before_script: cd ../bld
-      script:
-        - ctest -VV
+      <<: *test
+    - stage: Test
+      dist: xenial
+      <<: *test
+    - stage: Test
+      dist: bionic
+      <<: *test
+    - stage: Test
+      dist: focal
+      <<: *test
