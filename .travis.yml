@@ -33,9 +33,6 @@ _test: &test
 jobs:
   include:
     - stage: Configure
-      dist: precise
-      <<: *configure
-    - stage: Configure
       dist: trusty    
       <<: *configure
     - stage: Configure
@@ -49,9 +46,6 @@ jobs:
       <<: *configure
 
     - stage: Build
-      dist: precise
-      <<: *build
-    - stage: Build
       dist: trusty
       <<: *build
     - stage: Build
@@ -64,9 +58,6 @@ jobs:
       dist: focal
       <<: *build
 
-    - stage: Test
-      dist: precise
-      <<: *test
     - stage: Test
       dist: trusty
       <<: *test
