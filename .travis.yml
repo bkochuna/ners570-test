@@ -1,5 +1,11 @@
 language: cpp
 os: linux
+dist:
+  - trusty
+  - precise
+  - xenial
+  - bionic
+
 cache:
   directories:
     - ${TRAVIS_BUILD_DIR}/../bld
@@ -13,8 +19,10 @@ jobs:
       script:
         - cmake ${TRAVIS_BUILD_DIR}
     - stage: Build
+      before_script: cd ../bld
       script:
-        - echo $PWD 
-        - cd ../bld
         - make
-
+    - stage: Test
+      before_script: cd ../bld
+      script:
+        - ctest -VV
