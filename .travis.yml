@@ -2,7 +2,7 @@ language: cpp
 os: linux
 cache:
   directories:
-    - ${TRAVIS_BUILD_DIR}../bld
+    - ${TRAVIS_BUILD_DIR}/../bld
 
 jobs:
   include:
