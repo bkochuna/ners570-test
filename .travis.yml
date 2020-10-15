@@ -11,6 +11,7 @@ jobs:
     - stage: build
       name:  "Build"
       script:
-        - echo $PWD && ls -ahl 
+        - echo $PWD 
+        - cd ../bld
         - make
 
