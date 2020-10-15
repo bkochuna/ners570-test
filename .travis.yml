@@ -1,24 +1,16 @@
 language: cpp
-
 os: linux
-
-addons:
-  apt:
-    packages:
-    - cmake
-
-script:
-  - echo $PWD && ls -ahl && mkdir ../bld && cd ../bld && echo $PWD
-  - cmake ${TRAVIS_BUILD_DIR}
 
 jobs:
   include:
     - stage: config
       name: "Configure"
       script:
-        - echo $PWD && ls -ahl && mkdir ../bld && cd ../bld && echo $PWD
+        - echo $PWD && mkdir ../bld && cd ../bld && echo $PWD
         - cmake ${TRAVIS_BUILD_DIR}
     - stage: build
       name:  "Build"
-      script: make
+      script:
+        - echo $PWD && ls -ahl 
+        - make
 
