@@ -2,8 +2,9 @@
 #include "sparsemat.hpp"
 
 using namespace std; 
-using namespace SpMV;
 
+namespace SpMV
+{
 //Defines the Constructor Operation
 template <class fp_type>
 SparseMatrix<fp_type>::SparseMatrix(const size_t nrows, const size_t ncols)
@@ -29,4 +30,4 @@ SparseMatrix<fp_type>::~SparseMatrix()
 //Supported Templates
 template class SparseMatrix<float>;
 template class SparseMatrix<double>;
-
+}
