@@ -6,13 +6,13 @@ cache:
 
 jobs:
   include:
-    - stage: config
-      name: "Configure"
-      script:
+    - stage: Configure
+      before_script:
+        - rm -rf ${TRAVIS_BUILD_DIR}/../bld
         - echo $PWD && mkdir ../bld && cd ../bld && echo $PWD
+      script:
         - cmake ${TRAVIS_BUILD_DIR}
-    - stage: build
-      name:  "Build"
+    - stage: Build
       script:
         - echo $PWD 
         - cd ../bld
